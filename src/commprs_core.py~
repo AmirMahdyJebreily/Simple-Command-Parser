@@ -19,12 +19,11 @@ def extractCommandArguments(mnCom):
     outs = []
     args = re.findall(_COMMAND_ARGS_SECTION_EXTRACTOR_REGEX, (mnCom))
     print("args = ", args)
-    if len(args) > 0 :
-        for a in args[0].split(","):
-            outs.append(int(a.replace("(","")
-                            .replace("\"","")
-                            .replace(")","")
-                            .strip()))
+    for a in args[0].split(","):
+        outs.append(int(a.replace("(","")
+                        .replace("\"","")
+                        .replace(")","")
+                        .strip()))
     return outs
     # to get the arguments section
 
