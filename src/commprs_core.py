@@ -9,6 +9,12 @@ _comDict = {
     "sum": lambda args: int(args[0]) + int(args[1]),
     "mul": lambda args: int(args[0]) * int(args[1]),
     "dvd": lambda args: int(args[0]) / (args[1]),
+    "hi": lambda args: "hi there, this is codeagha's simple command parser based on regex !"
+    + (
+        ("i've got your message : '" + " ".join(args) + "'")
+        if (len(args) > 0)
+        else ("")
+    ),
     "exit": lambda args: exit(),
 }
 
@@ -39,5 +45,7 @@ while True:
 
     for _mnCom in _comSt:
         args = extractCommandArguments(_mnCom.replace(" ", ""))
-        commName = extractCommandName(_mnCom)  # Call the command name extractor function
+        commName = extractCommandName(
+            _mnCom
+        )  # Call the command name extractor function
         print(runCommand(commName, args))
