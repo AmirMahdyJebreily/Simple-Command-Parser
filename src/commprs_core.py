@@ -38,14 +38,18 @@ def runCommand(_commName, _args):
     return _comDict[_commName](_args)
 
 
+def runAll(comSt):
+    for _mnCom in comSt:
+        args = extractCommandArguments(_mnCom.replace(" ", ""))
+        commName = extractCommandName(
+            _mnCom
+        )  # Call the command name extractor function
+        return runCommand(commName, args)
+
+
 while True:
 
     _com = input("Enter Command : ")
     _comSt = re.split(r"\;+\b", _com)  # get the set of commands that inputed by user
 
-    for _mnCom in _comSt:
-        args = extractCommandArguments(_mnCom.replace(" ", ""))
-        commName = extractCommandName(
-            _mnCom
-        )  # Call the command name extractor function
-        print(runCommand(commName, args))
+    print(runAll(_comSt))
