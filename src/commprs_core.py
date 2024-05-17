@@ -45,4 +45,4 @@ def runAll(com):
         commName = extractCommandName(
             _mnCom
         )  # Call the command name extractor function
-        return runCommand(commName, args)
+        yield runCommand(commName, args)
