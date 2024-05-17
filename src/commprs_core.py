@@ -47,9 +47,9 @@ def runAll(comSt):
         return runCommand(commName, args)
 
 
-while True:
+# while True:
 
-    _com = input("Enter Command : ")
-    _comSt = re.split(r"\;+\b", _com)  # get the set of commands that inputed by user
+#     _com = input("Enter Command : ")
+#     _comSt = re.split(r"\;+\b", _com)  # get the set of commands that inputed by user
 
-    print(runAll(_comSt))
+#     print(runAll(_comSt))
