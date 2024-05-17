@@ -8,14 +8,31 @@ Only clone the repo and import the `runAll` function from `commprs_core` module 
 ```bash
 git clone https://github.com/AmirMahdyJebreily/Simple-Command-Parser.git
 ```
+### Execute only one command
 it have a very simple using method, take a look :  
 ```python
-from commprs_core import runAll
+from commprs_core import runFirst
 com = input("Enter Command : ")
-print(runAll(com))
+print(runFirst(com))
 ```  
-The `runAll` function will execute the commands defined in `_comDict` and you will see the output : 
+The `runFirst` function will execute the commands defined in `_comDict` and you will see the output : 
 ```
 Enter Command : sum(12,13)
 25
 ```
+### Run multiple commands
+You should use the function `runAll` which yields the results, as you can see in [`main.py`](https://github.com/AmirMahdyJebreily/Simple-Command-Parser/blob/main/src/main.py) you will also need a loop:  
+```python
+from commprs_core import runAll
+com = input("Enter Commands : ")
+res = runAll(com)
+for r in res:
+  print(r)
+```
+The `runAll` function will execute the commands defined in `_comDict` and you will see the output : 
+```
+Enter Commands : sum(12,13);mul(1,2)
+25
+2
+```  
+thanks for reading...
