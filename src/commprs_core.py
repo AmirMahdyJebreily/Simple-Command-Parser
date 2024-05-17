@@ -22,13 +22,12 @@ __comDict = {
     "exit": lambda args: exit(),
     "mkemptscrn": lambda args: chr(27) + "[2J" + ' '.join(args),
     "clear": lambda args: os.system('cls' if os.name == 'nt' else 'clear'),
-
+    "dick!": lambda args: "you dont have any dick!" + " ".join(args),
 }
 
 
 def __extractCommandName(mnCom):
     return __re.sub(__COMMAND_NAME_EXTRAXTION_RGEX, "", mnCom)  # to get the command name
-
 
 def __extractCommandArguments(mnCom):
     outs = []
