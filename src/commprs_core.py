@@ -11,6 +11,8 @@ __comDict = {
     "sum": lambda args: int(args[0]) + int(args[1]),
     "mul": lambda args: int(args[0]) * int(args[1]),
     "dvd": lambda args: int(args[0]) / (args[1]),
+
+    # default commands : 
     "hi": lambda args: "hi there, this is codeagha's simple command parser based on regex !"
     + (
         ("i've got your message : '" + " ".join(args) + "'")
@@ -44,18 +46,12 @@ def __splitComm(com):
 def runCommand(_commName, _args):
     return __comDict[_commName](_args)
 
-def runAll(com):
-    _comSt = __splitComm(com)
-    for _mnCom in _comSt:
-        args = __extractCommandArguments(_mnCom.replace(" ", ""))
-        commName = __extractCommandName(
-            _mnCom
-        )  # Call the command name extractor function
-        yield runCommand(commName, args)
-
-def runFirst(com):
-    _comSt = __splitComm(com)
-    _mnCom = _comSt[0] # only first run the command 
+def runFirst(_mnCom):
     args = __extractCommandArguments(_mnCom.replace(" ", ""))
     commName = __extractCommandName(_mnCom)  # Call the command name extractor function
     return runCommand(commName, args)
+
+def runAll(com):
+    _comSt = __splitComm(com)
+    for _mnCom in _comSt:
+        yield runFirst(_mnCom)
