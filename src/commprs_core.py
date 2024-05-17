@@ -22,7 +22,7 @@ __comDict = {
     "exit": lambda args: exit(),
     "mkemptscrn": lambda args: chr(27) + "[2J" + ' '.join(args),
     "clear": lambda args: os.system('cls' if os.name == 'nt' else 'clear'),
-    "dick!": lambda args: "you dont have any dick!" + " ".join(args),
+    "!pishi": lambda args: "meow ;) " + " ".join(args),
 }
 
 
