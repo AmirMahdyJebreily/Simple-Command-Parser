@@ -38,8 +38,9 @@ def runCommand(_commName, _args):
     return _comDict[_commName](_args)
 
 
-def runAll(comSt):
-    for _mnCom in comSt:
+def runAll(com):
+    _comSt = re.split(r"\;+\b", com)  # get the set of commands that inputed by user
+    for _mnCom in _comSt:
         args = extractCommandArguments(_mnCom.replace(" ", ""))
         commName = extractCommandName(
             _mnCom
