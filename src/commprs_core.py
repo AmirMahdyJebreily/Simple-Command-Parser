@@ -10,7 +10,7 @@ __comDict = {
     "sub": lambda args: int(args[0]) - int(args[1]),
     "sum": lambda args: int(args[0]) + int(args[1]),
     "mul": lambda args: int(args[0]) * int(args[1]),
-    "dvd": lambda args: int(args[0]) / (args[1]),
+    "dvd": lambda args: int(args[0]) / int(args[1]),
 
     # default commands : 
     "hi": lambda args: "hi there, this is codeagha's simple command parser based on regex !"
