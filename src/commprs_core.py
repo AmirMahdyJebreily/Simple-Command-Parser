@@ -1,5 +1,6 @@
 import re as __re
 
+__VAR_DETECTION = r"\$\w+\s*\<{1}\=\s*.+"
 __COMMAND_NAME_EXTRAXTION_RGEX = r"(\(\"?).+(\"?\))"
 __COMMAND_ARGS_SECTION_EXTRACTOR_REGEX = r"\(\"?.+\"?\)"  # the pattern \(\"?.+\"?\) gives us anything between two (), like sum(12) => the result will be 13
 
