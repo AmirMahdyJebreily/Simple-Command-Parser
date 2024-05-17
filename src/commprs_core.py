@@ -40,7 +40,7 @@ def __extractCommandArguments(mnCom):
     # to get the arguments section
 
 def __splitComm(com):
-    return __re.split(r"\;+\b", com)  # get the set of commands that inputed by user
+    return __re.split(r"\s*\;+\s*\b", com)  # get the set of commands that inputed by user
 
 def runCommand(_commName, _args):
     return __comDict[_commName](_args)
