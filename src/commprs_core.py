@@ -38,11 +38,23 @@ def runCommand(_commName, _args):
     return _comDict[_commName](_args)
 
 
+def splitComm(com):
+    return re.split(r"\;+\b", com)  # get the set of commands that inputed by user
+
+
 def runAll(com):
-    _comSt = re.split(r"\;+\b", com)  # get the set of commands that inputed by user
+    _comSt = splitComm(com)
     for _mnCom in _comSt:
         args = extractCommandArguments(_mnCom.replace(" ", ""))
         commName = extractCommandName(
             _mnCom
         )  # Call the command name extractor function
         yield runCommand(commName, args)
+
+
+def runFirst(com):
+    _comSt = splitComm(com)
+    _mnCom = _comSt[0] # only first run the command 
+    args = extractCommandArguments(_mnCom.replace(" ", ""))
+    commName = extractCommandName(_mnCom)  # Call the command name extractor function
+    return runCommand(commName, args)
