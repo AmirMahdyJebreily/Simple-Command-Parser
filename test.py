@@ -1,5 +1,5 @@
 import unittest
-import commprs_core as comm
+import src.commprs_core as comm
 
 
 class commTest(unittest.TestCase):
