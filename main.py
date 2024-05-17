@@ -6,4 +6,5 @@ while True:
     com = input("> ")
     res = runAll(com)
     for r in res:
-        print(":", r)
+        if r != None:
+            print(":", r)

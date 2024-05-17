@@ -1,4 +1,5 @@
 import re as __re
+import os
 
 __VAR_DETECTION = r"\$\w+\s*\<{1}\=\s*.+"
 __COMMAND_NAME_EXTRAXTION_RGEX = r"(\(\"?).+(\"?\))"
@@ -17,6 +18,9 @@ __comDict = {
         else ("")
     ),
     "exit": lambda args: exit(),
+    "mkemptscrn": lambda args: chr(27) + "[2J" + ' '.join(args),
+    "clear": lambda args: os.system('cls' if os.name == 'nt' else 'clear'),
+
 }
 
 
