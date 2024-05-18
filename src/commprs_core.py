@@ -21,9 +21,11 @@ __comDict = {
         else ("")
     ),
     "exit": lambda args: exit(),
-    "mkemptscrn": lambda args: chr(27) + "[2J" + ' '.join(args),
-    "clear": lambda args: tool.runNoRes(os.system,('cls' if os.name == 'nt' else 'clear')),
-    "!pishi": lambda args: "meow ;) " + " ".join(args),
+    "clear": lambda args: tool.runNoRes(os.system,'cls' if os.name == 'nt' else 'clear'),
+
+    # default for fun functions : 
+    "!mkemptscrn": lambda args: chr(27) + "[2J" + ' '.join(args),
+    "!pishi": lambda args: "meow ;) " + " ".join(args), # for my friend, pishi :)
 }
 
 
