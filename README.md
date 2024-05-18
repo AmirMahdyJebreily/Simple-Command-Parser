@@ -21,7 +21,7 @@ The `runFirst` function will execute the commands defined in `_comDict` and you 
 : 25
 ```
 ### Run multiple commands
-You should use the function `runAll` which yields the results, as you can see in [`main.py`](https://github.com/AmirMahdyJebreily/Simple-Command-Parser/blob/main/src/main.py) you will also need a loop:  
+You should use the function `runAll` which yields the results, as you can see in [`main.py`](https://github.com/AmirMahdyJebreily/Simple-Command-Parser/blob/main/main.py) you will also need a loop:  
 ```python
 from commprs_core import runAll
 com = input("Enter Commands : ")
