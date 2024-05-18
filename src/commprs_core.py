@@ -1,4 +1,5 @@
 import re as __re
+import src.commprs_tool as tool
 import os
 
 __VAR_DETECTION = r"\$\w+\s*\<{1}\=\s*.+"
@@ -21,7 +22,7 @@ __comDict = {
     ),
     "exit": lambda args: exit(),
     "mkemptscrn": lambda args: chr(27) + "[2J" + ' '.join(args),
-    "clear": lambda args: os.system('cls' if os.name == 'nt' else 'clear'),
+    "clear": lambda args: tool.runNoRes(os.system,('cls' if os.name == 'nt' else 'clear')),
     "!pishi": lambda args: "meow ;) " + " ".join(args),
 }
 
