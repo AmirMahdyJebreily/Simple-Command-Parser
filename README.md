@@ -17,8 +17,8 @@ print(runFirst(com))
 ```  
 The `runFirst` function will execute the commands defined in `_comDict` and you will see the output : 
 ```
-Enter Command : sum(12,13)
-25
+> sum(12,13)
+: 25
 ```
 ### Run multiple commands
 You should use the function `runAll` which yields the results, as you can see in [`main.py`](https://github.com/AmirMahdyJebreily/Simple-Command-Parser/blob/main/src/main.py) you will also need a loop:  
@@ -31,8 +31,8 @@ for r in res:
 ```
 The `runAll` function will execute the commands defined in `_comDict` and you will see the output : 
 ```
-Enter Commands : sum(12,13);mul(1,2)
-25
-2
+> sum(12,13);mul(1,2)
+: 25
+: 2
 ```  
 thanks for reading...
