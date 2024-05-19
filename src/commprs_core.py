@@ -44,6 +44,12 @@ def __defVariable(varname: str, value): # defind variable
     else:
         print(": [SyntaxError]: Var name is unvalid", varname) # error handeling
 
+def __extVariable(varname: str):
+    if(__varsDict.has_key(varname)):
+        return __varsDict[varname] # value if the variable
+    else:
+        print(": [IdentifyError]: i do not identify var or function as name", varname) # error handeling
+
 def __extractCommandName(mnCom):
     return __re.sub(__COMMAND_NAME_EXTRAXTION_RGEX, "", mnCom)  # to get the command name
 
