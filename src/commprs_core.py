@@ -51,6 +51,8 @@ def __extVariable(varname: str):
             ": [IdentifyError]: i do not identify var or function as name", varname
         )  # error handeling
 
+def __checkVarName(varname: str):
+    return varname in __varsDict.keys()
 
 def __extractCommandName(mnCom):
     return __re.sub(
@@ -63,8 +65,12 @@ def __extractCommandArguments(mnCom):
     args = __re.findall(__COMMAND_ARGS_SECTION_EXTRACTOR_REGEX, (mnCom))
     if len(args) == 0:
         return []
+    
     for a in args[0].split(","):
-        outs.append(a.replace("(", "").replace('"', "").replace(")", "").strip())
+        arg = a.replace("(", "").replace('"', "").replace(")", "").strip()
+        if(__checkVarName(arg)):
+            arg = __extVariable(arg)
+        outs.append(arg)
     return outs
     # to get the arguments section
 
