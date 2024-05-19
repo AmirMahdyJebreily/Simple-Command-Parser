@@ -51,8 +51,10 @@ def __extVariable(varname: str):
             ": [IdentifyError]: i do not identify var or function as name", varname
         )  # error handeling
 
+
 def __checkVarName(varname: str):
     return varname in __varsDict.keys()
+
 
 def __extractCommandName(mnCom):
     return __re.sub(
@@ -65,10 +67,10 @@ def __extractCommandArguments(mnCom):
     args = __re.findall(__COMMAND_ARGS_SECTION_EXTRACTOR_REGEX, (mnCom))
     if len(args) == 0:
         return []
-    
+
     for a in args[0].split(","):
         arg = a.replace("(", "").replace('"', "").replace(")", "").strip()
-        if(__checkVarName(arg)):
+        if __checkVarName(arg):
             arg = __extVariable(arg)
         outs.append(arg)
     return outs
@@ -88,7 +90,7 @@ def __splitDefVarComm(com):
 
 # command identifier functions
 def __isVarExtComm(com) -> bool:
-    return (com) in __varsDict.keys() and ((com) not in __comDict.keys())
+    return __checkVarName(com) and ((com) not in __comDict.keys())
 
 
 def __isVarDefAsignComm(com) -> bool:
@@ -101,17 +103,25 @@ def runCommand(_commName, _args):
 
 
 def runFirst(_mnCom):
+
+    if __isVarExtComm(_mnCom): # check if the command for extract value of variable
+        return __extVariable(_mnCom)  # variable extraction
+
+    elif __isVarDefAsignComm(_mnCom): # check if the command for define variable
+        parts = __splitDefVarComm(_mnCom) # split parts of syntax
+        try:
+            parts[1] = int(parts[1])
+        except:
+            if __isVarExtComm(parts[1]):
+                parts[1] = __varsDict[parts[1]] # value of asigned var
+            else: 
+                parts[1] = runFirst(parts[1]) # value of the function
+        return __defVariable(parts[0].replace(" ", "").replace("$", ""), parts[1])
+    
+    # if command isn't var of defVar or etc..., comman runner try to run it
+    
     args = __extractCommandArguments(_mnCom.replace(" ", ""))
     commName = __extractCommandName(_mnCom)  # Call the command name extractor function
-
-    if __isVarExtComm(commName):
-        return __extVariable(commName)  # variable extraction
-    
-    elif __isVarDefAsignComm(commName):
-        parts = __splitDefVarComm(commName)
-        return __defVariable(parts[0].replace(" ", "").replace("$", ""), parts[1])
-
-    # if command isn't var of defVar or etc..., comman runner try to run it
     return runCommand(commName, args)
 
 
