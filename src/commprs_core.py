@@ -8,7 +8,7 @@ __COMMAND_ARGS_SECTION_EXTRACTOR_REGEX = r"\(\"?.+\"?\)"  # the pattern \(\"?.+\
 
 # dictionary of variables
 __varsDict = {
-    "varsion": "0.0.1", # default variable
+    "!version": "0.0.1", # default variable
 }
 
 # [Just for Test] a dictionary of commands, it will be changed into anouther format
@@ -45,7 +45,7 @@ def __defVariable(varname: str, value): # defind variable
         print(": [SyntaxError]: Var name is unvalid", varname) # error handeling
 
 def __extVariable(varname: str):
-    if(__varsDict.has_key(varname)):
+    if((varname) in __varsDict.keys()):
         return __varsDict[varname] # value if the variable
     else:
         print(": [IdentifyError]: i do not identify var or function as name", varname) # error handeling
@@ -66,12 +66,17 @@ def __extractCommandArguments(mnCom):
 def __splitComm(com):
     return __re.split(r"\s*\;+\s*\b", com)  # get the set of commands that inputed by user
 
+def __isVarExtComm(com) -> bool:
+    return (com) in __varsDict.keys() and ((com) not in __comDict.keys())
+
 def runCommand(_commName, _args):
     return __comDict[_commName](_args)
 
 def runFirst(_mnCom):
     args = __extractCommandArguments(_mnCom.replace(" ", ""))
     commName = __extractCommandName(_mnCom)  # Call the command name extractor function
+    if(__isVarExtComm(commName)):
+        return __extVariable(commName) # variable extraction
     return runCommand(commName, args)
 
 def runAll(com):
