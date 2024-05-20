@@ -1,5 +1,5 @@
-import re as __re
 import src.commprs_tool as tool
+import re as __re
 import os
 
 __VAR_DETECTION = r"\$\w+\s*\<{0,1}\=\s*.+"
