@@ -68,10 +68,14 @@ def __extractCommandArguments(mnCom):
     if len(args) == 0:
         return []
 
-    for a in args[0].split(","):
-        arg = a.replace("(", "").replace('"', "").replace(")", "").strip()
-        if __checkVarName(arg):
-            arg = __extVariable(arg)
+    for a in tool.splitArgs(args[0]):
+        arg = a.replace('"', "").strip()
+        try:
+            arg = int(arg)
+        except:
+            if __checkVarName(arg):
+                arg = __extVariable(arg)
+            arg = runFirst(arg)
         outs.append(arg)
     return outs
     # to get the arguments section
@@ -104,22 +108,22 @@ def runCommand(_commName, _args):
 
 def runFirst(_mnCom):
 
-    if __isVarExtComm(_mnCom): # check if the command for extract value of variable
+    if __isVarExtComm(_mnCom):  # check if the command for extract value of variable
         return __extVariable(_mnCom)  # variable extraction
 
-    elif __isVarDefAsignComm(_mnCom): # check if the command for define variable
-        parts = __splitDefVarComm(_mnCom) # split parts of syntax
+    elif __isVarDefAsignComm(_mnCom):  # check if the command for define variable
+        parts = __splitDefVarComm(_mnCom)  # split parts of syntax
         try:
             parts[1] = int(parts[1])
         except:
             if __isVarExtComm(parts[1]):
-                parts[1] = __varsDict[parts[1]] # value of asigned var
-            else: 
-                parts[1] = runFirst(parts[1]) # value of the function
+                parts[1] = __varsDict[parts[1]]  # value of asigned var
+            else:
+                parts[1] = runFirst(parts[1])  # value of the function
         return __defVariable(parts[0].replace(" ", "").replace("$", ""), parts[1])
-    
+
     # if command isn't var of defVar or etc..., comman runner try to run it
-    
+
     args = __extractCommandArguments(_mnCom.replace(" ", ""))
     commName = __extractCommandName(_mnCom)  # Call the command name extractor function
     return runCommand(commName, args)
