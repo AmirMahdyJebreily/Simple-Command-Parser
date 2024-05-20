@@ -18,5 +18,8 @@ class commTest(unittest.TestCase):
     def test_runAll_VarDefine(self):
         self.assertEqual(list(comm.runAll("$x = 12;x")), [None, 12])
 
+    def test_runAll_VarUse(self):
+        self.assertEqual(list(comm.runAll("$x = 12;sum(x,sum(x,2))")), [None, 26])
+
 if __name__ == "__main__":
     unittest.main()
