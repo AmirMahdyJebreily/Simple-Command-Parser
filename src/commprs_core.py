@@ -73,8 +73,6 @@ def __extractCommandArguments(mnCom):
         try:
             arg = int(arg)
         except:
-            if __checkVarName(arg):
-                arg = __extVariable(arg)
             arg = runFirst(arg)
         outs.append(arg)
     return outs
