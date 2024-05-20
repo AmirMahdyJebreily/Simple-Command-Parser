@@ -15,5 +15,8 @@ class commTest(unittest.TestCase):
     def test_runFirst_NestedComs(self):
         self.assertEqual(comm.runFirst("sum(mul(2,6), 13)"), 25)
 
+    def test_runAll_VarDefine(self):
+        self.assertEqual(list(comm.runAll("$x = 12;x")), [None, 12])
+
 if __name__ == "__main__":
     unittest.main()
