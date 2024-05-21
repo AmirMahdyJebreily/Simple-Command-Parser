@@ -69,6 +69,6 @@ So far, not many complex capabilities have been added to the syntax, but complex
 > sum(x, y)
 : 38
 ```
-It is not a very complicated thing for compilers of programming languages, but as a Command Parser it is a bit more complicated, especially that in the future facilities will be provided and these commands `sum' and `mul' etc. will be removed so that you can write commands yourself.  Inject yourself based on personalized regexes and have your own command system!  
+It is not a very complicated thing for compilers of programming languages, but as a Command Parser it is a bit more complicated, especially that in the future facilities will be provided and these commands `sum` and `mul` etc. will be removed so that you can write commands yourself.  Inject yourself based on personalized regexes and have your own command system!  
 -  
 I will be happy to support this project.  For now it's just a simple start, for another personal project, but I think it will be useful to some people!
