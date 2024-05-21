@@ -61,3 +61,14 @@ As before, if you enter the name of the variable, you will see their value
 ```
 Pay attention, currently it is not possible to define a variable without an initial value, because these are not variables at all. In fact, you will need these when you want to store values in temporary memory to retrieve them later. Well, when there is no value, you won't need to save and restore it again :)  
 
+## A slightly complicated example
+So far, not many complex capabilities have been added to the syntax, but complex commands can also be written that show what complexities this project based on Rex can analyze.  
+```
+> $x = sum(1,mul(12,2))
+> $y = 13
+> sum(x, y)
+: 38
+```  
+It is not a very complicated thing for compilers of programming languages, but as a Command Parser it is a bit more complicated, especially that in the future facilities will be provided and these commands `sum' and `mul' etc. will be removed so that you can write commands yourself.  Inject yourself based on personalized regexes and have your own command system!  
+-  
+I will be happy to support this project.  For now it's just a simple start, for another personal project, but I think it will be useful to some people!
