@@ -4,15 +4,15 @@ def runNoRes(func, args):  # for run a func withou return any result
 
 def splitArgs(arg):
     res = []
-    senscomma = True
+    depth = 0
     arg_n = 0
     res.append("")
     for i in range(0, len(arg)):
         if arg[i] == "(" and i != 0:
-            senscomma = False
+            depth += 1
         elif arg[i] == ")":
-            senscomma = True
-        elif arg[i] == "," and senscomma != False:
+            depth -= 1
+        elif arg[i] == "," and depth == 1:
             arg_n += 1
             res.append("")
             continue
