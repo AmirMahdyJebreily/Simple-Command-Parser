@@ -35,4 +35,29 @@ The `runAll` function will execute the commands defined in `_comDict` and you wi
 : 25
 : 2
 ```  
-thanks for reading...
+## Syntax
+### Define variables
+Pay attention, this is not a programming language, so it can be said that these are exactly the variables of programming languages, but it can be said that the software actually gives names to different data and stores them in its memory so that they can be retrieved later, for this reason, I decided to name them Variable so that the names are not complicated and useless.  
+There are two ways to define these variables
+#### The first way to define variables
+You can use the `var()` command. the `var()` is a default command that define a variable  
+```
+> var(x, 12)
+```  
+Now if you enter the name of the variable, the Command Parser will show you the value of the variable  
+```
+> x
+: 12
+```
+#### The second way to define variables
+The second method does the same work as the first method and has no difference in implementation, this method is provided only for convenience in defining the variables! You can use `$` operator to define variables!  
+```
+> $x = 12
+```  
+As before, if you enter the name of the variable, you will see their value  
+```
+> x
+: 12
+```
+Pay attention, currently it is not possible to define a variable without an initial value, because these are not variables at all. In fact, you will need these when you want to store values in temporary memory to retrieve them later. Well, when there is no value, you won't need to save and restore it again :)  
+
