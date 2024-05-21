@@ -1,4 +1,5 @@
 import src.commprs_tool as tool
+import src.commprs_cons as cons
 import re as __re
 import os
 
@@ -40,16 +41,15 @@ def __defVariable(varname: str, value):  # defind variable
     if __re.fullmatch(r"[a-z]+\w*", varname):
         __varsDict[varname] = value
     else:
-        print(": [SyntaxError]: Var name is unvalid", varname)  # error handeling
+        cons.message(2, "Var name is unvalid '" + varname + "'")
+        # error handeling
 
 
 def __extVariable(varname: str):
     if (varname) in __varsDict.keys():
         return __varsDict[varname]  # value if the variable
     else:
-        print(
-            ": [IdentifyError]: i do not identify var or function as name", varname
-        )  # error handeling
+        cons.message(2, "@default@ " + varname)  # error handeling
 
 
 def __checkVarName(varname: str):
@@ -101,7 +101,20 @@ def __isVarDefAsignComm(com) -> bool:
 
 # runner functions
 def runCommand(_commName, _args):
-    return __comDict[_commName](_args)
+    try:
+        return __comDict[_commName](_args)
+    except KeyError as e:
+        cons.message(3, "@default@ " + _commName + ", Error: " + e.__str__())
+        return None
+    except IndexError as e:
+        cons.message(4, "@default@ " + ", Error: " + e.__str__())
+        return None
+    except TypeError as e:
+        cons.message(4, "@default@, You may have made a mistake in entering the commands" + ", Error: " + e.__str__())
+        return None
+    except ValueError as e:
+        cons.message(4, "@default@, You may have made a mistake in entering the commands" + ", Error: " + e.__str__())
+        return None
 
 
 def runFirst(_mnCom):
@@ -120,7 +133,7 @@ def runFirst(_mnCom):
                 parts[1] = runFirst(parts[1])  # value of the function
         return __defVariable(parts[0].replace(" ", "").replace("$", ""), parts[1])
 
-    # if command isn't var of defVar or etc..., comman runner try to run it
+        # if command isn't var of defVar or etc..., comman runner try to run it
 
     args = __extractCommandArguments(_mnCom.replace(" ", ""))
     commName = __extractCommandName(_mnCom)  # Call the command name extractor function
