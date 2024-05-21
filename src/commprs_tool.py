@@ -12,7 +12,7 @@ def splitArgs(arg):
             depth += 1
         elif arg[i] == ")":
             depth -= 1
-        elif arg[i] == "," and depth == 1:
+        elif arg[i] == "," and depth == 0:
             arg_n += 1
             res.append("")
             continue
