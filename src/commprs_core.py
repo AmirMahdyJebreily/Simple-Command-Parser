@@ -99,8 +99,8 @@ def __isVarDefAsignComm(com) -> bool:
     return __re.match(__VAR_DETECTION, com)
 
 # define functions
-def defCommand(name : str, func):
-    __comDict[name] = func
+def defCommand(name : str, handlerFunc):
+    __comDict[name] = handlerFunc
 
 # runner functions
 def runCommand(_commName, _args):
