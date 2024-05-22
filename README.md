@@ -35,6 +35,20 @@ The `runAll` function will execute the commands defined in `_comDict` and you wi
 : 25
 : 2
 ```  
+### Define your commands
+For this case, you have to import `defCommand()` function. As you can see in [`main.py`](https://github.com/AmirMahdyJebreily/Simple-Command-Parser/blob/main/main.py) this function gets a __string name__ and a handler function :
+```python
+from src.commprs_core import defCommand
+
+def SumIntCollection(nums : list) -> int: # handler function
+    res = 0
+    for n in nums:
+        res += int(n)
+    return res
+
+defCommand("sumAll", SumIntCollection)
+```  
+Its usefull when you want to test manual your script functions and give diffrent argument to there  
 ## Syntax
 ### Define variables
 Pay attention, this is not a programming language, so it can be said that these are exactly the variables of programming languages, but it can be said that the software actually gives names to different data and stores them in its memory so that they can be retrieved later, for this reason, I decided to name them Variable so that the names are not complicated and useless.  
