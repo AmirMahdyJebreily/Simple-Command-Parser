@@ -48,7 +48,14 @@ def SumIntCollection(nums : list) -> int: # handler function
 
 defCommand("sumAll", SumIntCollection)
 ```  
-Its usefull when you want to test manual your script functions and give diffrent argument to there  
+Its usefull when you want to test manual your script functions and give diffrent argument to there. now you can run the command like below : 
+```
+> sumAll(1, 2, 3)
+: 6
+> sumAll(sum(1,2), 3, 3)
+: 9
+```
+Note that the arguments that are passed are all strings
 ## Syntax
 ### Define variables
 Pay attention, this is not a programming language, so it can be said that these are exactly the variables of programming languages, but it can be said that the software actually gives names to different data and stores them in its memory so that they can be retrieved later, for this reason, I decided to name them Variable so that the names are not complicated and useless.  
