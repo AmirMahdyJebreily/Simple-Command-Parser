@@ -7,7 +7,9 @@ I started this project just for fun, but then I saw that it could be an interest
 Only clone the repo and import the `runAll` function from `commprs_core` module into your script : 
 ```bash
 git clone https://github.com/AmirMahdyJebreily/Simple-Command-Parser.git
-```
+```  
+## Python API
+To complete the execution of the commands, you need to get the result of the command execution and print it anywhere you want. In this example, we use Python's own `print()`.
 ### Execute only one command
 it have a very simple using method, take a look :  
 ```python
