@@ -52,6 +52,17 @@ def __extVariable(varname: str):
         cons.message(2, "@default@ " + varname)  # error handeling
 
 
+def __defVarBySyntax(mnCom):
+    parts = __splitDefVarComm(mnCom)  # split parts of syntax
+    try:
+        parts[1] = int(parts[1])
+    except:
+        if __isVarExtComm(parts[1]):
+            parts[1] = __varsDict[parts[1]]  # value of asigned var
+        else:
+           parts[1] = runFirst(parts[1])  # value of the function
+    return __defVariable(parts[0].replace(" ", "").replace("$", ""), parts[1])
+
 def __checkVarName(varname: str):
     return varname in __varsDict.keys()
 
@@ -126,15 +137,7 @@ def runFirst(_mnCom):
         return __extVariable(_mnCom)  # variable extraction
 
     elif __isVarDefAsignComm(_mnCom):  # check if the command for define variable
-        parts = __splitDefVarComm(_mnCom)  # split parts of syntax
-        try:
-            parts[1] = int(parts[1])
-        except:
-            if __isVarExtComm(parts[1]):
-                parts[1] = __varsDict[parts[1]]  # value of asigned var
-            else:
-                parts[1] = runFirst(parts[1])  # value of the function
-        return __defVariable(parts[0].replace(" ", "").replace("$", ""), parts[1])
+        return __defVarBySyntax(_mnCom)
 
         # if command isn't var of defVar or etc..., comman runner try to run it
 
