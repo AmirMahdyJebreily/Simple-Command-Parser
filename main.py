@@ -1,14 +1,5 @@
 # CodeAgha 2023
-from src.commprs_core import runAll, defCommand
-
-def SumIntCollection(nums : list) -> int:
-    res = 0
-    for n in nums:
-        res += int(n)
-    return res
-
-defCommand("sumAll", SumIntCollection)
-
+from src.commprs_core import runAll
 print("Hi, Wellcome to CodeAgha Simple Command Parser")
 print("Github repo:", "https://github.com/AmirMahdyJebreily/Simple-Command-Parser\n")
 while True:

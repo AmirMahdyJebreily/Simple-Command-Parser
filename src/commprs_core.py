@@ -6,14 +6,23 @@ import os
 __VAR_DETECTION = r"\$\w+\s*\<{0,1}\=\s*.+"
 __COMMAND_NAME_EXTRAXTION_RGEX = r"(\(\"?).+(\"?\))"
 __COMMAND_ARGS_SECTION_EXTRACTOR_REGEX = r"\(\"?.+\"?\)"  # the pattern \(\"?.+\"?\) gives us anything between two (), like sum(12) => the result will be 13
+__MATH_SUM_DETECTION = r"\s*\+\s*"
 
 # dictionary of variables
 __varsDict = {"!version": "0.0.1", "x": 0}  # default variable
 
+# handler functions
+def _sumAll(nums : list) -> int:
+    res = 0
+    for n in nums:
+        res += int(n)
+    return res
+
 # [Just for Test] a dictionary of commands, it will be changed into anouther format
 __comDict = {
-    "sub": lambda args: int(args[0]) - int(args[1]),
     "sum": lambda args: int(args[0]) + int(args[1]),
+    "sumAll": _sumAll,
+    "sub": lambda args: int(args[0]) - int(args[1]),
     "mul": lambda args: int(args[0]) * int(args[1]),
     "dvd": lambda args: int(args[0]) / int(args[1]),
     # syntax commands :
