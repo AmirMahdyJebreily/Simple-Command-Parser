@@ -8,9 +8,7 @@ __COMMAND_NAME_EXTRAXTION_RGEX = r"(\(\"?).+(\"?\))"
 __COMMAND_ARGS_SECTION_EXTRACTOR_REGEX = r"\(\"?.+\"?\)"  # the pattern \(\"?.+\"?\) gives us anything between two (), like sum(12) => the result will be 13
 
 # dictionary of variables
-__varsDict = {
-    "!version": "0.0.1",  # default variable
-}
+__varsDict = {"!version": "0.0.1", "x": 0}  # default variable
 
 # [Just for Test] a dictionary of commands, it will be changed into anouther format
 __comDict = {
@@ -60,8 +58,9 @@ def __defVarBySyntax(mnCom):
         if __isVarExtComm(parts[1]):
             parts[1] = __varsDict[parts[1]]  # value of asigned var
         else:
-           parts[1] = runFirst(parts[1])  # value of the function
+            parts[1] = runFirst(parts[1])  # value of the function
     return __defVariable(parts[0].replace(" ", "").replace("$", ""), parts[1])
+
 
 def __checkVarName(varname: str):
     return varname in __varsDict.keys()
@@ -105,6 +104,7 @@ def __isVarExtComm(com) -> bool:
 def __isVarDefAsignComm(com) -> bool:
     return __re.match(__VAR_DETECTION, com)
 
+
 def __isNum(com) -> bool:
     try:
         int(com)
@@ -112,9 +112,11 @@ def __isNum(com) -> bool:
     except:
         return False
 
+
 # define functions
-def defCommand(name : str, handlerFunc):
+def defCommand(name: str, handlerFunc):
     __comDict[name] = handlerFunc
+
 
 # runner functions
 def runCommand(_commName, _args):
@@ -127,10 +129,20 @@ def runCommand(_commName, _args):
         cons.message(4, "@default@ " + ", Error: " + e.__str__())
         return None
     except TypeError as e:
-        cons.message(4, "@default@, You may have made a mistake in entering the commands" + ", Error: " + e.__str__())
+        cons.message(
+            4,
+            "@default@, You may have made a mistake in entering the commands"
+            + ", Error: "
+            + e.__str__(),
+        )
         return None
     except ValueError as e:
-        cons.message(4, "@default@, You may have made a mistake in entering the commands" + ", Error: " + e.__str__())
+        cons.message(
+            4,
+            "@default@, You may have made a mistake in entering the commands"
+            + ", Error: "
+            + e.__str__(),
+        )
         return None
 
 
