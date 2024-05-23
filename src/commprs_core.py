@@ -80,11 +80,7 @@ def __extractCommandArguments(mnCom):
         return []
 
     for a in tool.splitArgs(args[0]):
-        arg = a.replace('"', "").strip()
-        try:
-            arg = int(arg)
-        except:
-            arg = runFirst(arg)
+        arg = runFirst(a.replace('"', "").strip())
         outs.append(arg)
     return outs
     # to get the arguments section
@@ -108,6 +104,13 @@ def __isVarExtComm(com) -> bool:
 
 def __isVarDefAsignComm(com) -> bool:
     return __re.match(__VAR_DETECTION, com)
+
+def __isNum(com) -> bool:
+    try:
+        int(com)
+        return True
+    except:
+        return False
 
 # define functions
 def defCommand(name : str, handlerFunc):
@@ -133,10 +136,13 @@ def runCommand(_commName, _args):
 
 def runFirst(_mnCom):
 
+    if __isNum(_mnCom):
+        return int(_mnCom)
+
     if __isVarExtComm(_mnCom):  # check if the command for extract value of variable
         return __extVariable(_mnCom)  # variable extraction
 
-    elif __isVarDefAsignComm(_mnCom):  # check if the command for define variable
+    if __isVarDefAsignComm(_mnCom):  # check if the command for define variable
         return __defVarBySyntax(_mnCom)
 
         # if command isn't var of defVar or etc..., comman runner try to run it
