@@ -6,22 +6,28 @@ import os
 __VAR_DETECTION = r"\$\w+\s*\<{0,1}\=\s*.+"
 __COMMAND_NAME_EXTRAXTION_RGEX = r"(\(\"?).+(\"?\))"
 __COMMAND_ARGS_SECTION_EXTRACTOR_REGEX = r"\(\"?.+\"?\)"  # the pattern \(\"?.+\"?\) gives us anything between two (), like sum(12) => the result will be 13
-__MATH_SUM_DETECTION = r"\s*\+\s*"
+__MATH_SUM_ALL_SPLIT = r"\s*\+\s*"
+__MATH_SUM_ALL_DETECTION = r".+\s*\+\s*"
 
 # dictionary of variables
 __varsDict = {"!version": "0.0.1", "x": 0}  # default variable
 
+
 # handler functions
-def _sumAll(nums : list) -> int:
-    res = 0
-    for n in nums:
-        res += int(n)
-    return res
+def __sumAll(nums: list) -> int:
+    try:
+        res = 0
+        for n in nums:
+            res += runFirst(n)
+        return res
+    except:
+        raise
+
 
 # [Just for Test] a dictionary of commands, it will be changed into anouther format
 __comDict = {
     "sum": lambda args: int(args[0]) + int(args[1]),
-    "sumAll": _sumAll,
+    "sumAll": __sumAll,
     "sub": lambda args: int(args[0]) - int(args[1]),
     "mul": lambda args: int(args[0]) * int(args[1]),
     "dvd": lambda args: int(args[0]) / int(args[1]),
@@ -105,6 +111,10 @@ def __splitDefVarComm(com):
     return __re.split(r"\s*\=+\s*\b", com)
 
 
+def __splitSumAll(com):
+    return __re.split(__MATH_SUM_ALL_SPLIT, com)
+
+
 # command identifier functions
 def __isVarExtComm(com) -> bool:
     return __checkVarName(com) and ((com) not in __comDict.keys())
@@ -112,6 +122,10 @@ def __isVarExtComm(com) -> bool:
 
 def __isVarDefAsignComm(com) -> bool:
     return __re.match(__VAR_DETECTION, com)
+
+
+def __isSumAll(com: str) -> bool:
+    return __re.fullmatch(__MATH_SUM_ALL_DETECTION, __re.sub(r"([^\s])+$", "", com))
 
 
 def __isNum(com) -> bool:
@@ -129,48 +143,56 @@ def defCommand(name: str, handlerFunc):
 
 # runner functions
 def runCommand(_commName, _args):
-    try:
-        return __comDict[_commName](_args)
-    except KeyError as e:
-        cons.message(3, "@default@ " + _commName + ", Error: " + e.__str__())
-        return None
-    except IndexError as e:
-        cons.message(4, "@default@ " + ", Error: " + e.__str__())
-        return None
-    except TypeError as e:
-        cons.message(
-            4,
-            "@default@, You may have made a mistake in entering the commands"
-            + ", Error: "
-            + e.__str__(),
-        )
-        return None
-    except ValueError as e:
-        cons.message(
-            4,
-            "@default@, You may have made a mistake in entering the commands"
-            + ", Error: "
-            + e.__str__(),
-        )
-        return None
+    return __comDict[_commName](_args)
 
 
 def runFirst(_mnCom):
 
-    if __isNum(_mnCom):
-        return int(_mnCom)
+    try:
+        if __isNum(_mnCom):
+            return int(_mnCom)
 
-    if __isVarExtComm(_mnCom):  # check if the command for extract value of variable
-        return __extVariable(_mnCom)  # variable extraction
+        if __isSumAll(_mnCom):
+            return __sumAll(__splitSumAll(_mnCom))
 
-    if __isVarDefAsignComm(_mnCom):  # check if the command for define variable
-        return __defVarBySyntax(_mnCom)
+        if __isVarExtComm(_mnCom):  # check if the command for extract value of variable
+            return __extVariable(_mnCom)  # variable extraction
+
+        if __isVarDefAsignComm(_mnCom):  # check if the command for define variable
+            return __defVarBySyntax(_mnCom)
 
         # if command isn't var of defVar or etc..., comman runner try to run it
 
-    args = __extractCommandArguments(_mnCom.replace(" ", ""))
-    commName = __extractCommandName(_mnCom)  # Call the command name extractor function
-    return runCommand(commName, args)
+        args = __extractCommandArguments(_mnCom.replace(" ", ""))
+        commName = __extractCommandName(
+            _mnCom
+        )  # Call the command name extractor function
+        return runCommand(commName, args)
+
+    except:
+        raise
+    # except KeyError as e:
+    #     cons.message(3, "@default@ " + commName + ", Error: " + e.__str__())
+    #     return None
+    # except IndexError as e:
+    #     cons.message(4, "@default@ " + ", Error: " + e.__str__())
+    #     return None
+    # except TypeError as e:
+    #     cons.message(
+    #         4,
+    #         "@default@, You may have made a mistake in entering the commands"
+    #         + ", Error: "
+    #         + e.__str__(),
+    #     )
+    #     return None
+    # except ValueError as e:
+    #     cons.message(
+    #         4,
+    #         "@default@, You may have made a mistake in entering the commands"
+    #         + ", Error: "
+    #         + e.__str__(),
+    #     )
+    #     return None
 
 
 def runAll(com):
