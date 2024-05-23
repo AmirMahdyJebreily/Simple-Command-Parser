@@ -169,30 +169,30 @@ def runFirst(_mnCom):
         )  # Call the command name extractor function
         return runCommand(commName, args)
 
+    except KeyError as e:
+        cons.message(3, "@default@ " + commName + ", Error: " + e.__str__())
+        return None
+    except IndexError as e:
+        cons.message(4, "@default@ " + ", Error: " + e.__str__())
+        return None
+    except TypeError as e:
+        cons.message(
+            4,
+            "@default@, You may have made a mistake in entering the commands"
+            + ", Error: "
+            + e.__str__(),
+        )
+        return None
+    except ValueError as e:
+        cons.message(
+            4,
+            "@default@, You may have made a mistake in entering the commands"
+            + ", Error: "
+            + e.__str__(),
+        )
+        return None
     except:
         raise
-    # except KeyError as e:
-    #     cons.message(3, "@default@ " + commName + ", Error: " + e.__str__())
-    #     return None
-    # except IndexError as e:
-    #     cons.message(4, "@default@ " + ", Error: " + e.__str__())
-    #     return None
-    # except TypeError as e:
-    #     cons.message(
-    #         4,
-    #         "@default@, You may have made a mistake in entering the commands"
-    #         + ", Error: "
-    #         + e.__str__(),
-    #     )
-    #     return None
-    # except ValueError as e:
-    #     cons.message(
-    #         4,
-    #         "@default@, You may have made a mistake in entering the commands"
-    #         + ", Error: "
-    #         + e.__str__(),
-    #     )
-    #     return None
 
 
 def runAll(com):
