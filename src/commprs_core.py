@@ -18,7 +18,7 @@ def __sumAll(nums: list) -> int:
     try:
         res = 0
         for n in nums:
-            res += runFirst(n)
+            res += runFirst(n.replace('"', "").strip())
         return res
     except:
         raise
@@ -125,7 +125,7 @@ def __isVarDefAsignComm(com) -> bool:
 
 
 def __isSumAll(com: str) -> bool:
-    return __re.fullmatch(__MATH_SUM_ALL_DETECTION, __re.sub(r"([^\s])+$", "", com))
+    return __re.fullmatch(__MATH_SUM_ALL_DETECTION, __re.sub(r"([^\+])+$", "", com))
 
 
 def __isNum(com) -> bool:
@@ -143,17 +143,22 @@ def defCommand(name: str, handlerFunc):
 
 # runner functions
 def runCommand(_commName, _args):
-    return __comDict[_commName](_args)
+    try:
+        return __comDict[_commName](_args)
+    except:
+        raise
 
 
 def runFirst(_mnCom):
 
     try:
+        sumAllArgs = tool.splitArgs("(" + _mnCom + ")", "+")
+
+        if len(sumAllArgs) >= 2:
+            return __sumAll(sumAllArgs)
+
         if __isNum(_mnCom):
             return int(_mnCom)
-
-        if __isSumAll(_mnCom):
-            return __sumAll(__splitSumAll(_mnCom))
 
         if __isVarExtComm(_mnCom):  # check if the command for extract value of variable
             return __extVariable(_mnCom)  # variable extraction
@@ -170,11 +175,11 @@ def runFirst(_mnCom):
         return runCommand(commName, args)
 
     except KeyError as e:
-        cons.message(3, "@default@ " + commName + ", Error: " + e.__str__())
-        return None
+        cons.message(3, "@default@ '" + commName + "' , Error: " + e.__str__())
+        return 0
     except IndexError as e:
-        cons.message(4, "@default@ " + ", Error: " + e.__str__())
-        return None
+        cons.message(4, "@default@ '" + commName + "' , Error: " + e.__str__())
+        return 0
     except TypeError as e:
         cons.message(
             4,
@@ -182,7 +187,7 @@ def runFirst(_mnCom):
             + ", Error: "
             + e.__str__(),
         )
-        return None
+        return 0
     except ValueError as e:
         cons.message(
             4,
@@ -190,7 +195,7 @@ def runFirst(_mnCom):
             + ", Error: "
             + e.__str__(),
         )
-        return None
+        return 0
     except:
         raise
 
