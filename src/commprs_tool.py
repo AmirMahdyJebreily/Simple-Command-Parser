@@ -2,7 +2,7 @@ def runNoRes(func, args):  # for run a func withou return any result
     func(args)
 
 
-def splitArgs(arg, spliter = ','):
+def splitArgs(arg, spliter=","):
     res = []
     depth = 0
     target_depth = 0
@@ -12,14 +12,18 @@ def splitArgs(arg, spliter = ','):
         if arg[i] == "(":
             old_depth = depth
             depth += 1
-            if len(res) == 0 and old_depth == 0:
+            if len(res[arg_n]) == 0 and old_depth == (depth - 1):
                 target_depth = depth
+            if i == 0:
+                continue
         elif arg[i] == ")":
             depth -= 1
+            if i == len(arg) - 1:
+                continue
         elif arg[i] == spliter and depth == target_depth:
             arg_n += 1
             res.append("")
             continue
-        if i != 0 and i != len(arg) - 1:
-            res[arg_n] += arg[i]
+
+        res[arg_n] += arg[i]
     return res

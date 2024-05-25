@@ -93,7 +93,8 @@ def __extractCommandArguments(mnCom):
     if len(args) == 0:
         return []
 
-    for a in tool.splitArgs(args[0]):
+    splitedArgs = tool.splitArgs(args[0], ",")
+    for a in splitedArgs:
         arg = runFirst(a.replace('"', "").strip())
         outs.append(arg)
     return outs
@@ -152,19 +153,19 @@ def runCommand(_commName, _args):
 def runFirst(_mnCom):
 
     try:
-        sumAllArgs = tool.splitArgs("(" + _mnCom + ")", "+")
+        if __isVarDefAsignComm(_mnCom):  # check if the command for define variable
+            return __defVarBySyntax(_mnCom)
+        
+        if __isVarExtComm(_mnCom):  # check if the command for extract value of variable
+            return __extVariable(_mnCom)  # variable extraction
+
+        sumAllArgs = tool.splitArgs(_mnCom, "+")
 
         if len(sumAllArgs) >= 2:
             return __sumAll(sumAllArgs)
 
         if __isNum(_mnCom):
             return int(_mnCom)
-
-        if __isVarExtComm(_mnCom):  # check if the command for extract value of variable
-            return __extVariable(_mnCom)  # variable extraction
-
-        if __isVarDefAsignComm(_mnCom):  # check if the command for define variable
-            return __defVarBySyntax(_mnCom)
 
         # if command isn't var of defVar or etc..., comman runner try to run it
 
@@ -176,10 +177,10 @@ def runFirst(_mnCom):
 
     except KeyError as e:
         cons.message(3, "@default@ '" + commName + "' , Error: " + e.__str__())
-        return 0
+        return None
     except IndexError as e:
         cons.message(4, "@default@ '" + commName + "' , Error: " + e.__str__())
-        return 0
+        return None
     except TypeError as e:
         cons.message(
             4,
@@ -187,7 +188,7 @@ def runFirst(_mnCom):
             + ", Error: "
             + e.__str__(),
         )
-        return 0
+        return None
     except ValueError as e:
         cons.message(
             4,
@@ -195,7 +196,7 @@ def runFirst(_mnCom):
             + ", Error: "
             + e.__str__(),
         )
-        return 0
+        return None
     except:
         raise
 
