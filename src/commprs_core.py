@@ -159,10 +159,10 @@ def runFirst(_mnCom):
         if __isVarExtComm(_mnCom):  # check if the command for extract value of variable
             return __extVariable(_mnCom)  # variable extraction
 
-        sumAllArgs = tool.splitArgs(_mnCom, "+")
-
-        if len(sumAllArgs) >= 2:
-            return __sumAll(sumAllArgs)
+        if(__isSumAll(_mnCom)):
+            sumAllArgs = tool.splitArgs(_mnCom, "+")
+            if len(sumAllArgs) >= 2:
+                return __sumAll(sumAllArgs)
 
         if __isNum(_mnCom):
             return int(_mnCom)
