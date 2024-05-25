@@ -6,7 +6,6 @@ import os
 __VAR_DETECTION = r"\$\w+\s*\<{0,1}\=\s*.+"
 __COMMAND_NAME_EXTRAXTION_RGEX = r"(\(\"?).+(\"?\))"
 __COMMAND_ARGS_SECTION_EXTRACTOR_REGEX = r"\(\"?.+\"?\)"  # the pattern \(\"?.+\"?\) gives us anything between two (), like sum(12) => the result will be 13
-__MATH_SUM_ALL_SPLIT = r"\s*\+\s*"
 __MATH_SUM_ALL_DETECTION = r".+\s*\+\s*"
 
 # dictionary of variables
@@ -112,10 +111,6 @@ def __splitDefVarComm(com):
     return __re.split(r"\s*\=+\s*\b", com)
 
 
-def __splitSumAll(com):
-    return __re.split(__MATH_SUM_ALL_SPLIT, com)
-
-
 # command identifier functions
 def __isVarExtComm(com) -> bool:
     return __checkVarName(com) and ((com) not in __comDict.keys())
@@ -155,11 +150,11 @@ def runFirst(_mnCom):
     try:
         if __isVarDefAsignComm(_mnCom):  # check if the command for define variable
             return __defVarBySyntax(_mnCom)
-        
+
         if __isVarExtComm(_mnCom):  # check if the command for extract value of variable
             return __extVariable(_mnCom)  # variable extraction
 
-        if(__isSumAll(_mnCom)):
+        if __isSumAll(_mnCom):
             sumAllArgs = tool.splitArgs(_mnCom, "+")
             if len(sumAllArgs) >= 2:
                 return __sumAll(sumAllArgs)
